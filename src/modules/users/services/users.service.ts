@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateUserDto } from '../dtos/createUserDto';
+import { UserDto } from '../dtos/userDto';
+import { IUserRepository } from '../interfaces/IUserRepository';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @Inject('USER_REPOSITORY')
+    private userRepository: IUserRepository,
+  ) {}
+
+  public async create(userData: CreateUserDto): Promise<UserDto> {
+    Object.keys(userData).map(value => {
+      if (value.length === 0 || value === '') {
+        throw new Error('Please, fill fields!');
+      }
+    });
+
+    const user = await this.userRepository.create(userData);
+
+    // TODO - convert User to UserDto
+
+    return user;
   }
 
-  findAll() {
+  public async findAll() {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
+  public async findOne(id: number) {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  public async update(id: number, {}: UserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  public async remove(id: number) {
     return `This action removes a #${id} user`;
   }
 }
