@@ -1,10 +1,11 @@
-import { getRepository, Repository } from 'typeorm';
+import { EntityRepository, getRepository, Repository } from 'typeorm';
 import { CreateUserDto } from '../../../dtos/createUserDto';
 import { UserDto } from '../../../dtos/userDto';
 import { IUserRepository } from '../../../interfaces/IUserRepository';
 import { User } from '../entities/user.entity';
 
-export class UserRepository implements IUserRepository {
+@EntityRepository(User)
+export class UserRepository extends Repository<User> implements IUserRepository {
   private ormRepository: Repository<User>;
 
   private user: User;
@@ -12,6 +13,7 @@ export class UserRepository implements IUserRepository {
   private users: Array<User>;
 
   constructor() {
+    super();
     this.ormRepository = getRepository(User);
   }
 
@@ -30,19 +32,19 @@ export class UserRepository implements IUserRepository {
     return this.user;
   }
 
-  public async create(userData: CreateUserDto): Promise<User> {
+  public async register(userData: CreateUserDto): Promise<User> {
     this.user = this.ormRepository.create(userData);
-    // await this.ormRepository.save(this.user);
+    await this.ormRepository.save(this.user);
 
     return this.user;
   }
 
-  public async update(userData: UserDto): Promise<User> {
+  public async updateData(userData: UserDto): Promise<User> {
     this.user = await this.ormRepository.save(userData);
     return this.user;
   }
 
-  public async delete(id: string): Promise<void> {
+  public async removeData(id: string): Promise<void> {
     await this.ormRepository.delete(id);
   }
 }

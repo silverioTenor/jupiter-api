@@ -23,7 +23,7 @@ export class User {
   @Column()
   genre: 'man' | 'woman';
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
