@@ -1,4 +1,4 @@
-import { UserException } from '../infra/http/exceptions/UserException';
+import { AppException } from '../../../shared/infra/http/exceptions/AppException';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
 import { UsersService } from './users.service';
@@ -45,6 +45,6 @@ describe('UsersService', () => {
         email: 'uset_testing@testing.com',
         password: 'abc1234',
       }),
-    ).rejects.toBeInstanceOf(UserException);
+    ).rejects.toBeInstanceOf(AppException);
   });
 });

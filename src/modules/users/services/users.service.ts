@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from '../dtos/createUserDto';
 import { UserDto } from '../dtos/userDto';
-import { UserException } from '../infra/http/exceptions/UserException';
+import { AppException } from '../../../shared/infra/http/exceptions/AppException';
 import { UserRepository } from '../infra/typeorm/repositories/user.repository';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { EntityMapper } from '../utils/EntityMapper';
@@ -18,7 +18,7 @@ export class UsersService {
     const hasUser = await this.userRepository.findByEmail(userData.email);
 
     if (hasUser) {
-      throw new UserException('User Already exists!', 409);
+      throw new AppException('User Already exists!', 409);
     }
 
     const user = await this.userRepository.register(userData);
