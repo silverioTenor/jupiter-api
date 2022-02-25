@@ -8,13 +8,13 @@ import { IUserRepository } from '../interfaces/IUserRepository';
 import { EntityMapper } from '../utils/EntityMapper';
 
 @Injectable()
-export class UsersService {
+export class CreateUserService {
   constructor(
     @InjectRepository(UserRepository)
     private userRepository: IUserRepository,
   ) {}
 
-  public async create(userData: CreateUserDto): Promise<UserDto> {
+  public async run(userData: CreateUserDto): Promise<UserDto> {
     const hasUser = await this.userRepository.findByEmail(userData.email);
 
     if (hasUser) {
@@ -26,21 +26,5 @@ export class UsersService {
     const userDto = EntityMapper.convertToDto(user);
 
     return userDto;
-  }
-
-  public async findAll() {
-    return `This action returns all users`;
-  }
-
-  public async findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  public async update(id: number, {}: UserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  public async remove(id: number) {
-    return `This action removes a #${id} user`;
   }
 }
