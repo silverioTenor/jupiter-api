@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from '../auth/auth.module';
+import { BcryptHashProvider } from '../auth/providers/HashProvider/implementations/BcryptHashProvider';
 
 import { UserController } from './controllers/User.controller';
 import { UserRepository } from './infra/typeorm/repositories/user.repository';
@@ -10,7 +12,7 @@ import { RemoveUserService } from './services/RemoveUser.service';
 import { UpdateUserService } from './services/UpdateUser.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRepository])],
+  imports: [TypeOrmModule.forFeature([UserRepository]), AuthModule],
   controllers: [UserController],
   providers: [
     CreateUserService,
@@ -18,6 +20,10 @@ import { UpdateUserService } from './services/UpdateUser.service';
     GetOneUserService,
     UpdateUserService,
     RemoveUserService,
+    {
+      provide: 'HashProvider',
+      useClass: BcryptHashProvider,
+    },
   ],
 })
 export class UsersModule {}

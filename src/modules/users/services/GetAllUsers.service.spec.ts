@@ -1,3 +1,5 @@
+import { FakeHashProvider } from '../../auth/providers/HashProvider/fakes/FakeHashProvider';
+import { IHashProvider } from '../../auth/providers/HashProvider/interfaces/IHashProvider';
 import { UserDto } from '../dtos/UserDto';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
@@ -6,12 +8,14 @@ import { GetAllUsersService } from './GetAllUsers.service';
 
 describe('GetAllUsersService', () => {
   let repository: IUserRepository;
+  let hashProvider: IHashProvider;
   let createUser: CreateUserService;
   let getUsers: GetAllUsersService;
 
   beforeEach(async () => {
     repository = new FakeUserRepository();
-    createUser = new CreateUserService(repository);
+    hashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(repository, hashProvider);
     getUsers = new GetAllUsersService(repository);
   });
 

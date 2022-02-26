@@ -1,4 +1,6 @@
 import { AppException } from '../../../shared/infra/http/exceptions/AppException';
+import { FakeHashProvider } from '../../auth/providers/HashProvider/fakes/FakeHashProvider';
+import { IHashProvider } from '../../auth/providers/HashProvider/interfaces/IHashProvider';
 import { UpdateUserDto } from '../dtos/UpdateUserDto';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
@@ -7,12 +9,14 @@ import { UpdateUserService } from './UpdateUser.service';
 
 describe('UpdateUserService', () => {
   let repository: IUserRepository;
+  let hashProvider: IHashProvider;
   let createUser: CreateUserService;
   let updateUser: UpdateUserService;
 
   beforeEach(async () => {
     repository = new FakeUserRepository();
-    createUser = new CreateUserService(repository);
+    hashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(repository, hashProvider);
     updateUser = new UpdateUserService(repository);
   });
 

@@ -1,4 +1,6 @@
 import { AppException } from '../../../shared/infra/http/exceptions/AppException';
+import { FakeHashProvider } from '../../auth/providers/HashProvider/fakes/FakeHashProvider';
+import { IHashProvider } from '../../auth/providers/HashProvider/interfaces/IHashProvider';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
 import { CreateUserService } from './CreateUser.service';
@@ -6,12 +8,14 @@ import { GetOneUserService } from './GetOneUser.service';
 
 describe('GetOneUserService', () => {
   let repository: IUserRepository;
+  let hashProvider: IHashProvider;
   let createUser: CreateUserService;
   let getUser: GetOneUserService;
 
   beforeEach(async () => {
     repository = new FakeUserRepository();
-    createUser = new CreateUserService(repository);
+    hashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(repository, hashProvider);
     getUser = new GetOneUserService(repository);
   });
 
@@ -29,7 +33,7 @@ describe('GetOneUserService', () => {
 
     expect(user).not.toBeNull();
   });
-  
+
   it('should not be able get user', async () => {
     await expect(getUser.run('')).rejects.toBeInstanceOf(AppException);
   });

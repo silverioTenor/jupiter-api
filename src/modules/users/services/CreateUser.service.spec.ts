@@ -1,4 +1,6 @@
 import { AppException } from '../../../shared/infra/http/exceptions/AppException';
+import { FakeHashProvider } from '../../auth/providers/HashProvider/fakes/FakeHashProvider';
+import { IHashProvider } from '../../auth/providers/HashProvider/interfaces/IHashProvider';
 import { UserDto } from '../dtos/UserDto';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
@@ -7,10 +9,12 @@ import { CreateUserService } from './CreateUser.service';
 describe('CreateUserService', () => {
   let createUser: CreateUserService;
   let repository: IUserRepository;
+  let hashProvider: IHashProvider;
 
   beforeEach(async () => {
     repository = new FakeUserRepository();
-    createUser = new CreateUserService(repository);
+    hashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(repository, hashProvider);
   });
 
   it('should be able create one user', async () => {
