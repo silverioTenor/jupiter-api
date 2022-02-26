@@ -1,15 +1,18 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/createUserDto';
+import { UserDto } from '../dtos/userDto';
 import { CreateUserService } from '../services/createUser.service';
 import { GetAllUsersService } from '../services/GetAllUsers.service';
 import { GetOneUserService } from '../services/GetOneUser.service';
+import { UpdateUserService } from '../services/UpdateUser.service';
 
 @Controller('users')
 export class UserController {
   constructor(
     private readonly createUser: CreateUserService,
     private readonly getUsers: GetAllUsersService,
-    private readonly getUser: GetOneUserService
+    private readonly getUser: GetOneUserService,
+    private readonly updateUser: UpdateUserService,
   ) {}
 
   @Post()
@@ -27,10 +30,10 @@ export class UserController {
     return this.getUser.run(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() userDto: UserDto) {
-  //   return this.usersService.update(+id, userDto);
-  // }
+  @Put(':id')
+  update(@Param('id') id: string, @Body() userDto: UserDto) {
+    return this.updateUser.run(id, userDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {
