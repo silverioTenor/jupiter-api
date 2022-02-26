@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/CreateUserDto';
 import { UserDto } from '../dtos/UserDto';
 import { CreateUserService } from '../services/createUser.service';
 import { GetAllUsersService } from '../services/GetAllUsers.service';
 import { GetOneUserService } from '../services/GetOneUser.service';
+import { RemoveUserService } from '../services/RemoveUser.service';
 import { UpdateUserService } from '../services/UpdateUser.service';
 
 @Controller('users')
@@ -13,6 +14,7 @@ export class UserController {
     private readonly getUsers: GetAllUsersService,
     private readonly getUser: GetOneUserService,
     private readonly updateUser: UpdateUserService,
+    private readonly removeUser: RemoveUserService,
   ) {}
 
   @Post()
@@ -35,8 +37,8 @@ export class UserController {
     return this.updateUser.run(id, userDto);
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.usersService.remove(+id);
-  // }
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.removeUser.run(id);
+  }
 }
