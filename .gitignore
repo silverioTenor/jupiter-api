@@ -13,6 +13,7 @@ lerna-debug.log*
 
 # DB
 .env
+database
 
 # OS
 .DS_Store

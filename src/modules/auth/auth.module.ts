@@ -13,7 +13,7 @@ import { AuthenticationService } from './services/Authentication.service';
     AuthenticationService,
     {
       provide: 'HashProvider',
-      useValue: BcryptHashProvider,
+      useClass: BcryptHashProvider,
     },
   ],
 })
