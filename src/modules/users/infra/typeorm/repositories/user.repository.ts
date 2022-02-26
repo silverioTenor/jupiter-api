@@ -1,6 +1,6 @@
 import { EntityRepository, getRepository, Repository } from 'typeorm';
-import { CreateUserDto } from '../../../dtos/createUserDto';
-import { UserDto } from '../../../dtos/userDto';
+import { CreateUserDto } from '../../../dtos/CreateUserDto';
+import { UserDto } from '../../../dtos/UserDto';
 import { IUserRepository } from '../../../interfaces/IUserRepository';
 import { User } from '../entities/user.entity';
 

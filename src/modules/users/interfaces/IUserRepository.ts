@@ -1,6 +1,6 @@
-import { UserDto } from '../dtos/userDto';
+import { UserDto } from '../dtos/UserDto';
 import { User } from '../infra/typeorm/entities/user.entity';
-import { CreateUserDto } from './../dtos/createUserDto';
+import { CreateUserDto } from '../dtos/CreateUserDto';
 
 export interface IUserRepository {
   findAll(): Promise<User[]>;

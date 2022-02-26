@@ -1,4 +1,4 @@
-import { UserDto } from '../dtos/userDto';
+import { UserDto } from '../dtos/UserDto';
 import { User } from '../infra/typeorm/entities/user.entity';
 
 export class EntityMapper {

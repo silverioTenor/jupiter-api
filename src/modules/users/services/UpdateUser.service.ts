@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppException } from '../../../shared/infra/http/exceptions/AppException';
 import { UpdateUserDto } from '../dtos/UpdateUserDto';
-import { UserDto } from '../dtos/userDto';
+import { UserDto } from '../dtos/UserDto';
 import { UserRepository } from '../infra/typeorm/repositories/user.repository';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { EntityMapper } from '../utils/EntityMapper';

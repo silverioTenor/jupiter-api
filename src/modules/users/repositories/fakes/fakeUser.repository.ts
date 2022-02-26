@@ -1,5 +1,5 @@
-import { CreateUserDto } from '../../dtos/createUserDto';
-import { UserDto } from '../../dtos/userDto';
+import { CreateUserDto } from '../../dtos/CreateUserDto';
+import { UserDto } from '../../dtos/UserDto';
 import { User } from '../../infra/typeorm/entities/user.entity';
 import { IUserRepository } from '../../interfaces/IUserRepository';
 

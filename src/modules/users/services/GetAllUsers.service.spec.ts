@@ -1,5 +1,4 @@
-import { AppException } from '../../../shared/infra/http/exceptions/AppException';
-import { UserDto } from '../dtos/userDto';
+import { UserDto } from '../dtos/UserDto';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
 import { CreateUserService } from './CreateUser.service';

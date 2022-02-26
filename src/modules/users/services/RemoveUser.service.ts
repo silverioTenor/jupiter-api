@@ -1,27 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppException } from '../../../shared/infra/http/exceptions/AppException';
-import { UserDto } from '../dtos/UserDto';
 import { UserRepository } from '../infra/typeorm/repositories/user.repository';
 import { IUserRepository } from '../interfaces/IUserRepository';
-import { EntityMapper } from '../utils/EntityMapper';
 
 @Injectable()
-export class GetOneUserService {
+export class RemoveUserService {
   constructor(
     @InjectRepository(UserRepository)
-    private userRepository: IUserRepository,
+    private readonly userRepository: IUserRepository,
   ) {}
 
-  public async run(id: string): Promise<UserDto> {
+  public async run(id: string): Promise<void> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
-      throw new AppException('User not found', 404);
+      throw new AppException('User not found!', 404);
     }
 
-    const userDto = EntityMapper.convertToDto(user);
-
-    return userDto;
+    await this.userRepository.removeData(id);
   }
 }
