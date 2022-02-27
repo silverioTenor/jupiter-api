@@ -17,8 +17,12 @@ export class UserRepository extends Repository<User> implements IUserRepository 
     this.ormRepository = getRepository(User);
   }
 
-  public async findAll(): Promise<User[]> {
-    this.users = await this.ormRepository.find();
+  public async findAll(expression: boolean): Promise<User[]> {
+    if (!expression) {
+      this.users = await this.ormRepository.find({ where: { isActive: true } });
+    } else {
+      this.users = await this.ormRepository.find();
+    }
     return this.users;
   }
 
@@ -46,5 +50,9 @@ export class UserRepository extends Repository<User> implements IUserRepository 
 
   public async removeData(id: string): Promise<void> {
     await this.ormRepository.delete(id);
+  }
+
+  public async desactiveAccount(id: string): Promise<void> {
+    await this.ormRepository.save({ id, isActive: false } as User);
   }
 }

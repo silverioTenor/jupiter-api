@@ -1,6 +1,7 @@
 import { AppException } from '../../../shared/infra/http/exceptions/AppException';
 import { FakeHashProvider } from '../../auth/providers/HashProvider/fakes/FakeHashProvider';
 import { IHashProvider } from '../../auth/providers/HashProvider/interfaces/IHashProvider';
+import { CreateUserDto } from '../dtos/CreateUserDto';
 import { UserDto } from '../dtos/UserDto';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
@@ -31,7 +32,7 @@ describe('RemoveUserService', () => {
       email: 'john_doe@testing.com',
       genre: 'man',
       password: 'abc1234',
-    });
+    } as CreateUserDto);
 
     await removeUser.run(user.id);
 
@@ -46,7 +47,7 @@ describe('RemoveUserService', () => {
       email: 'john_doe@testing.com',
       genre: 'man',
       password: 'abc1234',
-    });
+    } as CreateUserDto);
 
     await expect(removeUser.run(`${user.id}sd`)).rejects.toBeInstanceOf(AppException);
     expect(getUser.run(user.id)).resolves.toBeInstanceOf(UserDto);

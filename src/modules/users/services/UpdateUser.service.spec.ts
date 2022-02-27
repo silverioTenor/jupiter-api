@@ -1,6 +1,7 @@
 import { AppException } from '../../../shared/infra/http/exceptions/AppException';
 import { FakeHashProvider } from '../../auth/providers/HashProvider/fakes/FakeHashProvider';
 import { IHashProvider } from '../../auth/providers/HashProvider/interfaces/IHashProvider';
+import { CreateUserDto } from '../dtos/CreateUserDto';
 import { UpdateUserDto } from '../dtos/UpdateUserDto';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
@@ -28,7 +29,7 @@ describe('UpdateUserService', () => {
       genre: 'man',
       email: 'uset_testing@testing.com',
       password: 'abc1234',
-    });
+    } as CreateUserDto);
 
     const updatedUser = await updateUser.run(user.id, { age: 23 } as UpdateUserDto);
 
@@ -50,7 +51,7 @@ describe('UpdateUserService', () => {
       genre: 'man',
       email: 'primary_test@testing.com',
       password: '123abc',
-    });
+    } as CreateUserDto);
 
     const user = await createUser.run({
       name: 'José',
@@ -59,7 +60,7 @@ describe('UpdateUserService', () => {
       genre: 'man',
       email: 'uset_testing@testing.com',
       password: 'abc1234',
-    });
+    } as CreateUserDto);
 
     await expect(
       updateUser.run(user.id, { email: 'primary_test@testing.com' } as UpdateUserDto),

@@ -11,7 +11,7 @@ import { EntityMapper } from '../utils/EntityMapper';
 export class UpdateUserService {
   constructor(
     @InjectRepository(UserRepository)
-    private userRepository: IUserRepository,
+    private readonly userRepository: IUserRepository,
   ) {}
 
   public async run(id: string, userData: UpdateUserDto): Promise<UserDto> {

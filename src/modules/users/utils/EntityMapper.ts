@@ -9,7 +9,7 @@ export class EntityMapper {
       const key = value[0];
       const content = value[1];
 
-      if (key !== 'password') {
+      if (key !== 'password' && key !== 'isActive') {
         userDto[key] = content;
       }
     });

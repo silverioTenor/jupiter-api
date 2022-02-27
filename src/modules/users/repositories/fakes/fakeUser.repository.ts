@@ -17,16 +17,20 @@ export class FakeUserRepository implements IUserRepository {
 
   public async findAll(): Promise<User[]> {
     this.users.push(this.user);
+    this.users = this.users.map(_user => {
+      return _user.isActive ? _user : null;
+    });
+
     return this.users;
   }
 
   public async findById(id: string): Promise<User> {
-    this.user = this.users.find(_user => _user.id === id);
+    this.user = this.users.find(_user => _user.id === id && _user.isActive);
     return this.user;
   }
 
   public async findByEmail(email: string): Promise<User> {
-    this.user = this.users.find(_user => _user.email === email);
+    this.user = this.users.find(_user => _user.email === email && _user.isActive);
     return this.user;
   }
 
@@ -34,6 +38,7 @@ export class FakeUserRepository implements IUserRepository {
     this.user = {
       id: uuid(),
       ...userData,
+      isActive: true,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -62,5 +67,13 @@ export class FakeUserRepository implements IUserRepository {
 
   public async removeData(id: string): Promise<void> {
     this.users = this.users.filter(_user => _user.id !== id);
+  }
+
+  public async desactiveAccount(id: string): Promise<void> {
+    this.users.forEach(_user => {
+      if (_user.id === id) {
+        _user.isActive = false;
+      }
+    });
   }
 }

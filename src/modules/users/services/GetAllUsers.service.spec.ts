@@ -1,5 +1,6 @@
 import { FakeHashProvider } from '../../auth/providers/HashProvider/fakes/FakeHashProvider';
 import { IHashProvider } from '../../auth/providers/HashProvider/interfaces/IHashProvider';
+import { CreateUserDto } from '../dtos/CreateUserDto';
 import { UserDto } from '../dtos/UserDto';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { FakeUserRepository } from '../repositories/fakes/fakeUser.repository';
@@ -27,7 +28,7 @@ describe('GetAllUsersService', () => {
       genre: 'man',
       email: 'uset_testing@testing.com',
       password: 'abc1234',
-    });
+    } as CreateUserDto);
 
     const users = await getUsers.run();
 

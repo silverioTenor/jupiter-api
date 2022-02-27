@@ -5,6 +5,7 @@ import { CreateUserService } from '../services/createUser.service';
 import { GetAllUsersService } from '../services/GetAllUsers.service';
 import { GetOneUserService } from '../services/GetOneUser.service';
 import { RemoveUserService } from '../services/RemoveUser.service';
+import { SuspendAccount } from '../services/SuspendAccount.service';
 import { UpdateUserService } from '../services/UpdateUser.service';
 
 @Controller('users')
@@ -15,6 +16,7 @@ export class UserController {
     private readonly getUser: GetOneUserService,
     private readonly updateUser: UpdateUserService,
     private readonly removeUser: RemoveUserService,
+    private readonly suspendUser: SuspendAccount,
   ) {}
 
   @Post()
@@ -40,5 +42,10 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.removeUser.run(id);
+  }
+
+  @Post('desactive/:id')
+  suspendAccount(@Param('id') id: string) {
+    return this.suspendUser.run(id);
   }
 }

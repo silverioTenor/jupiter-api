@@ -10,6 +10,7 @@ import { GetOneUserService } from './services/GetOneUser.service';
 import { RemoveUserService } from './services/RemoveUser.service';
 import { UpdateUserService } from './services/UpdateUser.service';
 import { SharedModule } from '../../shared/shared.module';
+import { SuspendAccount } from './services/SuspendAccount.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserRepository]), SharedModule],
@@ -20,6 +21,7 @@ import { SharedModule } from '../../shared/shared.module';
     GetOneUserService,
     UpdateUserService,
     RemoveUserService,
+    SuspendAccount,
     {
       provide: 'HashProvider',
       useClass: BcryptHashProvider,
