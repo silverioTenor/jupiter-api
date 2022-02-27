@@ -10,7 +10,7 @@
 
 ## Voo
 
-- Deve poder listar as vagas disponíveis para cada voo
+- Deve poder listar os voos disponíveis
 - Deve poder reservar um ou mais assentos
 - Deve poder alterar a quantidade de assentos
 - Deve poder cancelar uma reserva
